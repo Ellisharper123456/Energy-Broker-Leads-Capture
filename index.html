@@ -225,12 +225,20 @@
       data.energyType = [...form.querySelectorAll('input[name="energyType"]:checked')].map(cb => cb.value).join(', ');
       data.renewables = [...form.querySelectorAll('input[name="renewables"]:checked')].map(cb => cb.value).join(', ');
 
-      try {
-        await fetch(scriptURL, {
-          method: 'POST',
-          body: JSON.stringify(data),
-          headers: { 'Content-Type': 'application/json' }
-        });
+      fetch(scriptURL, {
+  method: 'POST',
+  mode: 'no-cors',   // <--- Add this line
+  body: JSON.stringify(data),
+  headers: { 'Content-Type': 'application/json' }
+})
+.then(() => {
+  alert('Lead submitted!'); // show success message
+  form.reset(); // reset form
+})
+.catch(err => {
+  console.log('Error submitting lead:', err);
+});
+
 
         // Show success and reset form
         document.getElementById('successMsg').style.display = 'block';
