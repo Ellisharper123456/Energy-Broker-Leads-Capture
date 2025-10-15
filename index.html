@@ -213,47 +213,41 @@
   </div>
 
   <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzu6HODG01KFi6Jp0687skGUzEEboeiSzRRWcwXDkoXENWfR798tf-VK--pX9uoJYnX/exec';
-    
-    document.getElementById('leadForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const form = e.target;
-      const formData = new FormData(form);
-      const data = Object.fromEntries(formData.entries());
+const scriptURL = 'https://script.google.com/macros/s/AKfycbzu6HODG01KFi6Jp0687skGUzEEboeiSzRRWcwXDkoXENWfR798tf-VK--pX9uoJYnX/exec';
 
-      // Collect multiple checkboxes properly
-      data.energyType = [...form.querySelectorAll('input[name="energyType"]:checked')].map(cb => cb.value).join(', ');
-      data.renewables = [...form.querySelectorAll('input[name="renewables"]:checked')].map(cb => cb.value).join(', ');
+document.getElementById('leadForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const form = e.target;
+  const formData = new FormData(form);
+  const data = Object.fromEntries(formData.entries());
 
-      fetch(scriptURL, {
-  method: 'POST',
-  mode: 'no-cors',   // <--- Add this line
-  body: JSON.stringify(data),
-  headers: { 'Content-Type': 'application/json' }
-})
-.then(() => {
-  alert('Lead submitted!'); // show success message
-  form.reset(); // reset form
-})
-.catch(err => {
-  console.log('Error submitting lead:', err);
-});
+  // Collect multiple checkboxes properly
+  data.energyType = [...form.querySelectorAll('input[name="energyType"]:checked')].map(cb => cb.value).join(', ');
+  data.renewables = [...form.querySelectorAll('input[name="renewables"]:checked')].map(cb => cb.value).join(', ');
 
-
-        // Show success and reset form
-        document.getElementById('successMsg').style.display = 'block';
-        form.reset();
-
-        // Hide message after 3 seconds
-        setTimeout(() => {
-          document.getElementById('successMsg').style.display = 'none';
-        }, 3000);
-
-      } catch (err) {
-        console.error('Error submitting lead:', err);
-        alert('❌ There was an error submitting the lead. Please try again.');
-      }
+  try {
+    fetch(scriptURL, {
+      method: 'POST',
+      mode: 'no-cors',   // bypass CORS
+      body: JSON.stringify(data),
+      headers: { 'Content-Type': 'application/json' }
     });
-  </script>
+
+    // Show success message
+    document.getElementById('successMsg').style.display = 'block';
+    form.reset();
+
+    // Hide message after 3 seconds
+    setTimeout(() => {
+      document.getElementById('successMsg').style.display = 'none';
+    }, 3000);
+
+  } catch (err) {
+    console.error('Error submitting lead:', err);
+    alert('❌ There was an error submitting the lead. Please try again.');
+  }
+});
+</script>
+
 </body>
 </html>
