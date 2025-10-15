@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LeadsLabs Lead Capture</title>
+  <style>
+    :root {
+      --bg-dark: #000;
+      --bg-card: #0b0b0b;
+      --accent: #007aff;
+      --text-light: #f5f5f5;
+      --text-muted: #a0a0a0;
+      --border-color: #1a1a1a;
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      margin: 0;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+
+    .form-wrapper {
+      width: 100%;
+      max-width: 720px;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 40px;
+      box-shadow: 0 0 40px rgba(0, 122, 255, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 1.9rem;
+      font-weight: 600;
+      margin-bottom: 30px;
+      color: var(--accent);
+      letter-spacing: 0.5px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 500;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      background-color: #121212;
+      color: var(--text-light);
+      font-size: 1rem;
+      margin-bottom: 18px;
+      transition: all 0.2s ease;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--accent);
+      outline: none;
+      background-color: #161616;
+    }
+
+    .checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .checkbox-group label {
+      background-color: #121212;
+      padding: 8px 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .checkbox-group input {
+      accent-color: var(--accent);
+    }
+
+    .checkbox-group label:hover {
+      border-color: var(--accent);
+      color: var(--text-light);
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    button {
+      width: 100%;
+      background: var(--accent);
+      border: none;
+      border-radius: var(--radius);
+      color: white;
+      font-weight: 600;
+      font-size: 1.05rem;
+      padding: 14px;
+      cursor: pointer;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+
+    button:hover {
+      background-color: #0066d6;
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    @media (max-width: 640px) {
+      .form-wrapper {
+        padding: 28px 20px;
+      }
+      h1 {
+        font-size: 1.6rem;
+        margin-bottom: 24px;
+      }
+      input, select, textarea {
+        font-size: 0.95rem;
+      }
+    }
+
+    .success-message {
+      text-align: center;
+      color: #00ff9d;
+      margin-top: 20px;
+      font-weight: 600;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-wrapper">
+    <h1>LeadsLabs Lead Capture</h1>
+    <form id="leadForm">
+      <label for="companyName">Company Name</label>
+      <input type="text" id="companyName" name="companyName" required>
+
+      <label for="companyNumber">Company Number</label>
+      <input type="text" id="companyNumber" name="companyNumber">
+
+      <label for="contactName">Key Contact Name</label>
+      <input type="text" id="contactName" name="contactName" required>
+
+      <label for="contactEmail">Key Contact Email</label>
+      <input type="email" id="contactEmail" name="contactEmail" required>
+
+      <label for="contactPhone">Key Contact Direct Number</label>
+      <input type="tel" id="contactPhone" name="contactPhone" required>
+
+      <label>Energy on Site</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" name="energyType" value="Gas"> Gas</label>
+        <label><input type="checkbox" name="energyType" value="Electricity"> Electricity</label>
+      </div>
+
+      <label>Gas Details</label>
+      <input type="text" name="gasSupplier" placeholder="Supplier">
+      <input type="text" name="gasContractEnd" placeholder="Contract End Date">
+      <input type="text" name="gasSpend" placeholder="Monthly Spend or Usage (kWh)">
+
+      <label>Electricity Details</label>
+      <input type="text" name="elecSupplier" placeholder="Supplier">
+      <input type="text" name="elecContractEnd" placeholder="Contract End Date">
+      <input type="text" name="elecSpend" placeholder="Monthly Spend or Usage (kWh)">
+
+      <label>Interested in Renewables?</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" name="renewables" value="Solar"> Solar</label>
+        <label><input type="checkbox" name="renewables" value="PPA"> PPA</label>
+        <label><input type="checkbox" name="renewables" value="ASHP"> ASHP</label>
+        <label><input type="checkbox" name="renewables" value="Battery"> Battery</label>
+        <label><input type="checkbox" name="renewables" value="EV Charger"> EV Charger</label>
+      </div>
+
+      <label for="locations">More than one location?</label>
+      <select id="locations" name="locations">
+        <option value="">Select an option</option>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+      </select>
+
+      <label for="notes">Notes</label>
+      <textarea id="notes" name="notes" placeholder="Add any key points or details from the call..."></textarea>
+
+      <button type="submit">Submit Lead</button>
+    </form>
+
+    <div class="success-message" id="successMsg">✅ Lead successfully captured!</div>
+  </div>
+
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzTMJ_Vn3H0dQrolnoBefXSl72gJAcoTW8k6G64JUeLhAeTr7ghwYPk12b1Aj4AFk0X/exec';
+    
+    document.getElementById('leadForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      // Collect multiple checkboxes properly
+      data.energyType = [...form.querySelectorAll('input[name="energyType"]:checked')].map(cb => cb.value).join(', ');
+      data.renewables = [...form.querySelectorAll('input[name="renewables"]:checked')].map(cb => cb.value).join(', ');
+
+      try {
+        await fetch(scriptURL, {
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: { 'Content-Type': 'application/json' }
+        });
+
+        // Show success and reset form
+        document.getElementById('successMsg').style.display = 'block';
+        form.reset();
+
+        // Hide message after 3 seconds
+        setTimeout(() => {
+          document.getElementById('successMsg').style.display = 'none';
+        }, 3000);
+
+      } catch (err) {
+        console.error('Error submitting lead:', err);
+        alert('❌ There was an error submitting the lead. Please try again.');
+      }
+    });
+  </script>
+</body>
+</html>
